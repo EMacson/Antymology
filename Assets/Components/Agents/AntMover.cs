@@ -62,14 +62,36 @@ namespace Antymology.Agents
         {
             Vector3 newPosition = transform.position;
             bool moveComplete = false;
-            int neighbor = 0;
-            while (!moveComplete)
+            int neighbor = RNG.Next(0, 4);
+            switch (neighbor)
             {
-                //int neighbor = RNG.Next(0, 4);
+                case 0:
+                    newPosition += new Vector3(0, 0, 1);
+                    moveComplete = movePosition(newPosition);
+                    break;
+                case 1:
+                    newPosition += new Vector3(1, 0, 0);
+                    moveComplete = movePosition(newPosition);
+                    break;
+                case 2:
+                    newPosition += new Vector3(0, 0, -1);
+                    moveComplete = movePosition(newPosition);
+                    break;
+                case 3:
+                    newPosition += new Vector3(-1, 0, 0);
+                    moveComplete = movePosition(newPosition);
+                    break;
+            }
+            /*
+            bool moveComplete = false;
+            int neighbor = 0;
+            while (!moveComplete && neighbor < 4)
+            {
+                int neighbor = RNG.Next(0, 4);
 
                 switch (neighbor)
                 {
-                    case 0:
+                   case 0:
                         newPosition += new Vector3(0, 0, 1);
                         moveComplete = movePosition(newPosition);
                         break;
@@ -88,6 +110,7 @@ namespace Antymology.Agents
                 }
                 neighbor++;
             }
+            */
         }
 
         bool movePosition(Vector3 position)
@@ -98,18 +121,50 @@ namespace Antymology.Agents
             // check is next block is air and there is a block to stand on
             if (!nextBlock.isVisible() && nextBlockBelow.isVisible())
             {
+                //transform.position = new Vector3(nextBlock.worldXCoordinate, nextBlock.worldYCoordinate, nextBlock.worldZCoordinate);
                 transform.position = position;
                 return true;
             }
 
-            // if above was false, check if the is a block two units down for the ant to stand on
             AbstractBlock nextBlockTwoBelow = WorldManagerInstance.GetBlock((int)position.x, (int)position.y - 2, (int)position.z);
-            if (!nextBlock.isVisible() && nextBlockTwoBelow.isVisible())
+            if(!nextBlockBelow.isVisible() && nextBlockTwoBelow.isVisible())
             {
                 transform.position = position;
+                transform.position += new Vector3(0, -1, 0);
                 return true;
             }
+
+            AbstractBlock nextBlockAbove = WorldManagerInstance.GetBlock((int)position.x, (int)position.y + 1, (int)position.z);
+            if(nextBlock.isVisible() && !nextBlockAbove.isVisible())
+            {
+                transform.position = position;
+                transform.position += new Vector3(0, 1, 0);
+                return true;
+            }
+
             return false;
+
+            //AbstractBlock nextBlock = WorldManagerInstance.GetBlock((int)position.x, (int)position.y, (int)position.z);
+            //AbstractBlock nextBlockBelow = WorldManagerInstance.GetBlock((int)position.x, (int)position.y - 1, (int)position.z);
+
+            // check is next block is air and there is a block to stand on
+            //if (!nextBlock.isVisible() && nextBlockBelow.isVisible())
+            //{
+            //    transform.position = position;
+            //    return true;
+            //}
+
+            // if above was false, check if the is a block two units down for the ant to stand on
+            //AbstractBlock nextBlockTwoBelow = WorldManagerInstance.GetBlock((int)position.x, (int)position.y - 2, (int)position.z);
+            //if (!nextBlock.isVisible() && nextBlockTwoBelow.isVisible())
+            //{
+            //    transform.position = new Vector3(nextBlockTwoBelow.worldXCoordinate, nextBlockTwoBelow.worldYCoordinate+1, nextBlockTwoBelow.worldZCoordinate); //nextBlockTwoBelow.position; //position;
+            //    return true;
+            //}
+
+            //AbstractBlock nextBlockAbove = WorldManagerInstance.GetBlock((int)position.x, (int)position.y + 1, (int)position.z);
+
+            //return false;
         }
 
         bool moveRight(Vector3 position)
