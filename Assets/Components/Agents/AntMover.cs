@@ -22,6 +22,16 @@ namespace Antymology.Agents
 
         private WorldManager WorldManagerInstance;
 
+        private Vector2 acidic = new Vector2(0, 3);
+        private Vector2 container = new Vector2(3, 3);
+        private Vector2 grass = new Vector2(0, 2);
+        private Vector2 mulch = new Vector2(0, 1);
+        private Vector2 nest = new Vector2(1, 3);
+        private Vector2 stone = new Vector2(3, 1);
+
+
+        public float health { get; set; }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -45,10 +55,30 @@ namespace Antymology.Agents
                 // Move the object along the y-axis with reduced speed
                 //transform.localPosition += new Vector3(0, 1, 0);
                 moveAnt();
+
+                AbstractBlock currentBlock = WorldManagerInstance.GetBlock((int)transform.position.x, (int)transform.position.y-1, (int)transform.position.z);
+                
+                if(currentBlock.tileMapCoordinate() == acidic)
+                {
+                    health += -2;
+                }
+                else
+                {
+                    health += -1;
+                }
+
+                if(health <= 0)
+                {
+                    gameObject.GetComponent<MeshRenderer>().enabled = false;
+                }
+
                 // Reset timer
                 timer = 0f;
             }
 
+
+
+            //health += -1;
 
             // Move the object along the x-axis
             //transform.localPosition += new Vector3(0, 1, 0);   

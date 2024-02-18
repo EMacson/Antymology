@@ -120,10 +120,12 @@ namespace Antymology.Terrain
                 );
                 AntMover antMoverScript = temp.AddComponent<AntMover>();
                 antMoverScript.SetWorldManagerInstance(this);
+                antMoverScript.health = 10f;
                 Ant antScript = temp.AddComponent<Ant>();
                 antScript.x = xCoord;
                 antScript.y = yCoord + 1;
                 antScript.z = zCoord;
+                //antScript.health = 100f;
                 antScript.Init(antMaterial);
                 //antScript.GenerateMesh();
 

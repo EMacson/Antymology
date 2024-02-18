@@ -47,6 +47,7 @@ namespace Antymology.Agents
 
         public GameObject antModelPrefab;
 
+
         #endregion
 
         #region Methods
@@ -124,6 +125,7 @@ namespace Antymology.Agents
             
         }
         public float speed = 5f; // Speed at which the object moves
+
         
 
         #endregion
