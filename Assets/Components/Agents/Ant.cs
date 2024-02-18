@@ -123,6 +123,8 @@ namespace Antymology.Agents
         {
             
         }
+        public float speed = 5f; // Speed at which the object moves
+        
 
         #endregion
     }

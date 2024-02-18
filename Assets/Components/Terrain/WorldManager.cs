@@ -118,7 +118,8 @@ namespace Antymology.Terrain
                     yCoord+1,
                     zCoord
                 );
-
+                AntMover antMoverScript = temp.AddComponent<AntMover>();
+                antMoverScript.SetWorldManagerInstance(this);
                 Ant antScript = temp.AddComponent<Ant>();
                 antScript.x = xCoord;
                 antScript.y = yCoord + 1;
