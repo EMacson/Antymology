@@ -1,4 +1,5 @@
 ﻿using Antymology.Helpers;
+using Antymology.Agents;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Antymology.Terrain
         /// The material used for eech block.
         /// </summary>
         public Material blockMaterial;
+        public Material antMaterial;
 
         /// <summary>
         /// The raw data of the underlying world structure.
@@ -40,6 +42,8 @@ namespace Antymology.Terrain
         /// Random number generator.
         /// </summary>
         private SimplexNoise SimplexNoise;
+
+        public string fbxFilePath;
 
         #endregion
 
@@ -88,7 +92,42 @@ namespace Antymology.Terrain
         /// </summary>
         private void GenerateAnts()
         {
-            throw new NotImplementedException();
+            GameObject antObg = new GameObject("Ants");
+
+            for (int i = 0; i < ConfigurationManager.Instance.Number_Of_Ants; i++)
+            {
+                // set variable game object
+                // give game object a mesh to be seen
+                int xCoord = RNG.Next(0, Blocks.GetLength(0));
+                int zCoord = RNG.Next(0, Blocks.GetLength(2));
+                int yCoord = -1;
+                for (int j = Blocks.GetLength(1) - 1; j >= 0; j--)
+                {
+                    if (Blocks[xCoord, j, zCoord] as AirBlock == null)
+                    {
+                        yCoord = j;
+                        break;
+                    }
+                }
+                GameObject temp = new GameObject();
+                //GameObject temp = Resources.Load<GameObject>(fbxFilePath);
+                temp.transform.parent = antObg.transform;
+                temp.transform.position = new Vector3
+                (
+                    xCoord,
+                    yCoord+1,
+                    zCoord
+                );
+
+                Ant antScript = temp.AddComponent<Ant>();
+                antScript.x = xCoord;
+                antScript.y = yCoord + 1;
+                antScript.z = zCoord;
+                antScript.Init(antMaterial);
+                //antScript.GenerateMesh();
+
+                //Blocks[xCoord, yCoord + 1, zCoord] = new AntBlock();
+            }
         }
 
         #endregion
