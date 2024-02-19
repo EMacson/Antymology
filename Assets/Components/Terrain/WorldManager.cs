@@ -95,44 +95,6 @@ namespace Antymology.Terrain
         {
             GameObject antObg = new GameObject("Ants");
             int xCoord, yCoord, zCoord;
-            for (int i = 0; i < ConfigurationManager.Instance.Number_Of_Ants; i++)
-            {
-                // set variable game object
-                // give game object a mesh to be seen
-                xCoord = RNG.Next(0, Blocks.GetLength(0));
-                zCoord = RNG.Next(0, Blocks.GetLength(2));
-                yCoord = -1;
-                for (int j = Blocks.GetLength(1) - 1; j >= 0; j--)
-                {
-                    if (Blocks[xCoord, j, zCoord] as AirBlock == null)
-                    {
-                        yCoord = j;
-                        break;
-                    }
-                }
-                GameObject temp = new GameObject();
-                //GameObject temp = Resources.Load<GameObject>(fbxFilePath);
-                temp.transform.parent = antObg.transform;
-                temp.transform.position = new Vector3
-                (
-                    xCoord,
-                    yCoord+1,
-                    zCoord
-                );
-                AntMover antMoverScript = temp.AddComponent<AntMover>();
-                antMoverScript.SetWorldManagerInstance(this);
-                antMoverScript.health = 10f;
-                antMoverScript.maxHealth = 10f;
-                Ant antScript = temp.AddComponent<Ant>();
-                antScript.x = xCoord;
-                antScript.y = yCoord + 1;
-                antScript.z = zCoord;
-                //antScript.health = 100f;
-                antScript.Init(antMaterial);
-                //antScript.GenerateMesh();
-
-                //Blocks[xCoord, yCoord + 1, zCoord] = new AntBlock();
-            }
 
             GameObject queenAntObg = new GameObject("QueenAnt");
 
@@ -163,6 +125,47 @@ namespace Antymology.Terrain
             queenAntScript.y = yCoord + 1;
             queenAntScript.z = zCoord;
             queenAntScript.Init(queenAntMaterial);
+
+            for (int i = 0; i < ConfigurationManager.Instance.Number_Of_Ants; i++)
+            {
+                // set variable game object
+                // give game object a mesh to be seen
+                /*
+                xCoord = RNG.Next(0, Blocks.GetLength(0));
+                zCoord = RNG.Next(0, Blocks.GetLength(2));
+                yCoord = -1;
+                for (int j = Blocks.GetLength(1) - 1; j >= 0; j--)
+                {
+                    if (Blocks[xCoord, j, zCoord] as AirBlock == null)
+                    {
+                        yCoord = j;
+                        break;
+                    }
+                }
+                */
+                GameObject temp = new GameObject();
+                //GameObject temp = Resources.Load<GameObject>(fbxFilePath);
+                temp.transform.parent = antObg.transform;
+                temp.transform.position = new Vector3
+                (
+                    xCoord,
+                    yCoord+1,
+                    zCoord
+                );
+                AntMover antMoverScript = temp.AddComponent<AntMover>();
+                antMoverScript.SetWorldManagerInstance(this);
+                antMoverScript.health = 10f;
+                antMoverScript.maxHealth = 10f;
+                Ant antScript = temp.AddComponent<Ant>();
+                antScript.x = xCoord;
+                antScript.y = yCoord + 1;
+                antScript.z = zCoord;
+                //antScript.health = 100f;
+                antScript.Init(antMaterial);
+                //antScript.GenerateMesh();
+
+                //Blocks[xCoord, yCoord + 1, zCoord] = new AntBlock();
+            }
         }
 
         #endregion
