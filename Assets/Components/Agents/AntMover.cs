@@ -81,6 +81,8 @@ namespace Antymology.Agents
                     gameObject.GetComponent<MeshRenderer>().enabled = false;
                 }
 
+                AbstractBlock currentAirBlock = WorldManagerInstance.GetBlock((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
+                currentAirBlock.pheromoneAmount += 1;
                 // Reset timer
                 timer = 0f;
             }

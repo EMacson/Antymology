@@ -26,6 +26,8 @@ namespace Antymology.Terrain
         /// </summary>
         private Dictionary<byte, double> phermoneDeposits;
 
+        public int pheromoneAmount { get; set; }
+
         #endregion
 
         #region Methods
