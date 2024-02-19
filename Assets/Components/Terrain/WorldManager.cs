@@ -22,6 +22,7 @@ namespace Antymology.Terrain
         /// </summary>
         public Material blockMaterial;
         public Material antMaterial;
+        public Material queenAntMaterial;
 
         /// <summary>
         /// The raw data of the underlying world structure.
@@ -93,14 +94,14 @@ namespace Antymology.Terrain
         private void GenerateAnts()
         {
             GameObject antObg = new GameObject("Ants");
-
+            int xCoord, yCoord, zCoord;
             for (int i = 0; i < ConfigurationManager.Instance.Number_Of_Ants; i++)
             {
                 // set variable game object
                 // give game object a mesh to be seen
-                int xCoord = RNG.Next(0, Blocks.GetLength(0));
-                int zCoord = RNG.Next(0, Blocks.GetLength(2));
-                int yCoord = -1;
+                xCoord = RNG.Next(0, Blocks.GetLength(0));
+                zCoord = RNG.Next(0, Blocks.GetLength(2));
+                yCoord = -1;
                 for (int j = Blocks.GetLength(1) - 1; j >= 0; j--)
                 {
                     if (Blocks[xCoord, j, zCoord] as AirBlock == null)
@@ -132,6 +133,36 @@ namespace Antymology.Terrain
 
                 //Blocks[xCoord, yCoord + 1, zCoord] = new AntBlock();
             }
+
+            GameObject queenAntObg = new GameObject("QueenAnt");
+
+            xCoord = RNG.Next(0, Blocks.GetLength(0));
+            zCoord = RNG.Next(0, Blocks.GetLength(2));
+            yCoord = -1;
+            for (int j = Blocks.GetLength(1) - 1; j >= 0; j--)
+            {
+                if (Blocks[xCoord, j, zCoord] as AirBlock == null)
+                {
+                    yCoord = j;
+                    break;
+                }
+            }
+
+            queenAntObg.transform.position = new Vector3
+                (
+                    xCoord,
+                    yCoord + 1,
+                    zCoord
+                );
+            QueenAntMover queenAntMoverScript = queenAntObg.AddComponent<QueenAntMover>();
+            queenAntMoverScript.SetWorldManagerInstance(this);
+            queenAntMoverScript.health = 100f;
+            queenAntMoverScript.maxHealth = 100f;
+            QueenAnt queenAntScript = queenAntObg.AddComponent<QueenAnt>();
+            queenAntScript.x = xCoord;
+            queenAntScript.y = yCoord + 1;
+            queenAntScript.z = zCoord;
+            queenAntScript.Init(queenAntMaterial);
         }
 
         #endregion
