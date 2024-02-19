@@ -31,6 +31,7 @@ namespace Antymology.Agents
 
 
         public float health { get; set; }
+        public float maxHealth { get; set; }
 
         // Start is called before the first frame update
         void Start()
@@ -65,6 +66,14 @@ namespace Antymology.Agents
                 else
                 {
                     health += -1;
+                }
+
+                if(currentBlock.tileMapCoordinate() == mulch && health < maxHealth)
+                {
+                    health += 5;
+                    AirBlock airBlockInstance = new AirBlock();
+                    WorldManagerInstance.SetBlock((int)transform.position.x, (int)transform.position.y - 1, (int)transform.position.z, airBlockInstance);
+                    transform.position += new Vector3(0, -1, 0);
                 }
 
                 if(health <= 0)

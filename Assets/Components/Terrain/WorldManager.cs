@@ -121,6 +121,7 @@ namespace Antymology.Terrain
                 AntMover antMoverScript = temp.AddComponent<AntMover>();
                 antMoverScript.SetWorldManagerInstance(this);
                 antMoverScript.health = 10f;
+                antMoverScript.maxHealth = 10f;
                 Ant antScript = temp.AddComponent<Ant>();
                 antScript.x = xCoord;
                 antScript.y = yCoord + 1;
