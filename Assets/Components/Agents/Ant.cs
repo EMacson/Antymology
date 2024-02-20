@@ -1,3 +1,7 @@
+/*
+ * code adapted from chucks.cs
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +50,6 @@ namespace Antymology.Agents
         MeshCollider collider;
 
         public GameObject antModelPrefab;
-
 
         #endregion
 
@@ -116,17 +119,7 @@ namespace Antymology.Agents
             // Add MeshCollider component
             collider = gameObject.AddComponent<MeshCollider>();
         }
-
-        /// <summary>
-        /// Generates a mesh object which is then passed to the Mesh component of this monobehaviour.
-        /// </summary>
-        public void GenerateMesh()
-        {
-            
-        }
-        public float speed = 5f; // Speed at which the object moves
-
-        
+               
 
         #endregion
     }

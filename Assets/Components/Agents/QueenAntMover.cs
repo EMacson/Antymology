@@ -17,24 +17,14 @@ namespace Antymology.Agents
         // Time delay between each movement
         public float movementDelay = 0.5f;
 
+        // health information
         public float health { get; set; }
         public float maxHealth { get; set; }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
 
         public void SetWorldManagerInstance(WorldManager instance)
         {
             WorldManagerInstance = instance;
-        }
-
-        /// <summary>
-        /// initialize the gameobject to have a mesh and mesh renderer, and set the references internally.
-        /// </summary>
-        
+        }        
 
         // Update is called once per frame
         void Update()

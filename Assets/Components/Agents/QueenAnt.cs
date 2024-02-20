@@ -1,3 +1,7 @@
+/*
+ * code adapted from chucks.cs
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,13 +50,7 @@ namespace Antymology.Agents
 
         public GameObject antModelPrefab;
 
-
         #endregion
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
 
         public void Init(Material mat)
         {
@@ -114,12 +112,6 @@ namespace Antymology.Agents
 
             // Add MeshCollider component
             collider = gameObject.AddComponent<MeshCollider>();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }
