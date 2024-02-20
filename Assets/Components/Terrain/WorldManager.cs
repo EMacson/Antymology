@@ -96,6 +96,7 @@ namespace Antymology.Terrain
             GameObject antObg = new GameObject("Ants");
             int xCoord, yCoord, zCoord;
 
+            // create Queen Ant
             GameObject queenAntObg = new GameObject("QueenAnt");
 
             xCoord = RNG.Next(0, Blocks.GetLength(0));
@@ -126,25 +127,10 @@ namespace Antymology.Terrain
             queenAntScript.z = zCoord;
             queenAntScript.Init(queenAntMaterial);
 
+            // create ants, spawn at same location as queen ant
             for (int i = 0; i < ConfigurationManager.Instance.Number_Of_Ants; i++)
             {
-                // set variable game object
-                // give game object a mesh to be seen
-                /*
-                xCoord = RNG.Next(0, Blocks.GetLength(0));
-                zCoord = RNG.Next(0, Blocks.GetLength(2));
-                yCoord = -1;
-                for (int j = Blocks.GetLength(1) - 1; j >= 0; j--)
-                {
-                    if (Blocks[xCoord, j, zCoord] as AirBlock == null)
-                    {
-                        yCoord = j;
-                        break;
-                    }
-                }
-                */
                 GameObject temp = new GameObject();
-                //GameObject temp = Resources.Load<GameObject>(fbxFilePath);
                 temp.transform.parent = antObg.transform;
                 temp.transform.position = new Vector3
                 (
@@ -160,11 +146,7 @@ namespace Antymology.Terrain
                 antScript.x = xCoord;
                 antScript.y = yCoord + 1;
                 antScript.z = zCoord;
-                //antScript.health = 100f;
                 antScript.Init(antMaterial);
-                //antScript.GenerateMesh();
-
-                //Blocks[xCoord, yCoord + 1, zCoord] = new AntBlock();
             }
         }
 
